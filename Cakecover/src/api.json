@@ -1,0 +1,37 @@
+{
+    "count": 6,
+    "next": null,
+    "previous": null,
+    "results": [
+        {
+            "url": "http://127.0.0.1:8000/ingredient/2/",
+            "name": "Huevos de Gallina",
+            "description": "XXX"
+        },
+        {
+            "url": "http://127.0.0.1:8000/ingredient/3/",
+            "name": "Jamon de Pavo",
+            "description": "Es un producto que se clasifica como embutido hecho de Pavo."
+        },
+        {
+            "url": "http://127.0.0.1:8000/ingredient/4/",
+            "name": "Azucar",
+            "description": ""
+        },
+        {
+            "url": "http://127.0.0.1:8000/ingredient/5/",
+            "name": "Sal",
+            "description": ""
+        },
+        {
+            "url": "http://127.0.0.1:8000/ingredient/6/",
+            "name": "Pimienta",
+            "description": "Polvo de color negro"
+        },
+        {
+            "url": "http://127.0.0.1:8000/ingredient/7/",
+            "name": "Oregano",
+            "description": "Es una especia que se usa en comida italiana. En pizza por ejemplo."
+        }
+    ]
+}

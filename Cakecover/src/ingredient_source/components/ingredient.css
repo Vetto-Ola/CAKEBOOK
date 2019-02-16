@@ -1,0 +1,14 @@
+.Ingredient{
+    border-color: chocolate;
+    cursor: pointer;
+    background: beige;
+    display: list-item;
+}
+
+.Ingredient h3{
+    color: black;
+}
+
+.Ingredient p{
+    color: gray;
+}
