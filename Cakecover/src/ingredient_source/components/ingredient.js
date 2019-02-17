@@ -5,7 +5,7 @@ import './ingredient.css'
 function Ingredient(props){
     return(
         <div className="Ingredient">
-            <h3>{props.name}</h3>
+            <h4>{props.name}</h4>
             <p>{props.description}</p>
         </div>
     )

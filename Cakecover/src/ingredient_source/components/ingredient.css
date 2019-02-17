@@ -1,11 +1,12 @@
 .Ingredient{
-    border-color: chocolate;
+    border: 1px solid black;
     cursor: pointer;
-    background: beige;
-    display: list-item;
+    background: whitesmoke;
+    margin-bottom: 15px;
+    padding-left: 15px;
 }
 
-.Ingredient h3{
+.Ingredient h4{
     color: black;
 }
 
