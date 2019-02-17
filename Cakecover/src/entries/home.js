@@ -4,4 +4,4 @@ import Home from '../pages/containers/home';
 import data from '../../src/api.json';
 
 
-ReactDOM.render(<Home data={data}/>, document.getElementById('app'));
+ReactDOM.render(<Home/>, document.getElementById('app'));
