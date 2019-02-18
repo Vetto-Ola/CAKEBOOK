@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 function CreateIngredientButton(props){
     return(
-        <button onClick={props.handleOpenPopUp}>AGREGAR UN INGREDIENTE</button>
+        <button onClick={props.handleOpenPopUp}>{props.buttonName}</button>
     )
 }
 

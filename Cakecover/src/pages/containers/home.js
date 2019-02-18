@@ -8,12 +8,13 @@ import PopUpToCreate from '../../widgets/components/pop_up_create';
 import PopUpToUpdate from '../../widgets/components/pop_up_update';
 import SeachIngredient from '../../ingredient_source/components/search_ingredient'
 import { connect } from 'react-redux';
+import * as actions from '../../actions/ingredients/index';
+import { bindActionCreators } from 'redux';
 
 import axios from 'axios';
 
 class Home extends Component {
     state = {
-        popUpToCreate: false,
         popUpToEdit: false,
         url: '',
         name: '',
@@ -23,25 +24,16 @@ class Home extends Component {
     componentDidMount() {
         axios.get(`http://127.0.0.1:8000/ingredient/`)
             .then(result => {
-                this.props.dispatch({
-                    type: 'SHOW_INGREDIENTS',
-                    payload: {
-                        ingredientList: result.data.results,
-                    }
-                })
+                this.props.actions.showIngredients(result.data.results)
             })
     }
 
     handleOpenClickPopUp = (event) => {
-        this.setState({
-            popUpToCreate: true,
-        })
+        this.props.actions.openCreate()
     }
 
     handleCloseClickPopUp = (event) => {
-        this.setState({
-            popUpToCreate: false,
-        })
+        this.props.actions.closeCreate()
     }
 
     handleChangeInputText = (evet) => {
@@ -65,6 +57,7 @@ class Home extends Component {
                     description: result.data.description,
                     popUpToEdit: true,
                 })
+                this.props.actions.openUpdate()
             })
     }
 
@@ -76,10 +69,7 @@ class Home extends Component {
         }
         axios.put(this.state.url, updateIngredient)
             .then(result => {
-                console.log(result);
-                console.log(result.data);
                 this.setState({
-                    popUpToEdit: false,
                     name: '',
                     description: '',
                     url: '',
@@ -94,6 +84,7 @@ class Home extends Component {
             name: '',
             description: '',
         })
+        this.props.actions.closeUpdate()
     }
 
     handleIngredientDelete = (event) => {
@@ -129,12 +120,7 @@ class Home extends Component {
         const text = this.input.value.replace(' ','+')
         axios.get(`http://127.0.0.1:8000/ingredient/?contains=${text}`)
             .then(result => {
-                this.props.dispatch({
-                    type: 'SEARCH_INGREDIENT',
-                    payload: {
-                        searchResult: result.data.results,
-                    }
-                })
+                this.props.actions.showSearchResult(result.data.results)
             })
     }
     setInputSearchIngredientRef = element => {
@@ -146,6 +132,8 @@ class Home extends Component {
             <HomeLayout>
                 <Related />
                 <IngredientSource
+                    buttonName="AGREGAR INGREDIENTE"
+                    titulo="INGREDIENTES"
                     search={this.props.searchResults}
                     ingredients={this.props.ingredientList}
                     handleIngredientClick={this.handleUpdateIngredientClick}
@@ -159,7 +147,7 @@ class Home extends Component {
                     />
                 </IngredientSource>
                 {
-                    this.state.popUpToCreate &&
+                    this.props.createPopUpVisible &&
                     <PopUpContainer>
                         <PopUpToCreate
                             handleOnChangeInputText={this.handleChangeInputText}
@@ -170,7 +158,7 @@ class Home extends Component {
                     </PopUpContainer>
                 }
                 {
-                    this.state.popUpToEdit &&
+                    this.props.updatePopUpVisible &&
                     <PopUpContainer>
                         <PopUpToUpdate
                             handleOnChangeInputText={this.handleChangeInputText}
@@ -190,8 +178,16 @@ class Home extends Component {
 function mapStateToProps(state, props){
     return{
         searchResults: state.searchResults,
-        ingredientList: state.ingredientList
+        ingredientList: state.ingredientList,
+        createPopUpVisible: state.createPopUpVisible,
+        updatePopUpVisible: state.updatePopUpVisible,
     }
 }
 
-export default connect(mapStateToProps)(Home);
+function mapDispatchToProps(dispatch){
+    return{
+        actions: bindActionCreators(actions, dispatch)
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

@@ -11,7 +11,7 @@ const SearchIngredient = (props) => (
             ref={props.setInputSearchIngredientRef}
             type="text" 
             className="Input"
-            placeholder="¡Busca tu delicioso ingrediente!" 
+            placeholder="¡Buscar una delicia!" 
             required="required"
             name="search"/>
     </form>

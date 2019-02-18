@@ -9,6 +9,8 @@ import reducer from '../reducers/data';
 const initialState = {
     searchResults: [],
     ingredientList: [],
+    createPopUpVisible: false,
+    updatePopUpVisible: false,
 }
 
 const store = createStore(

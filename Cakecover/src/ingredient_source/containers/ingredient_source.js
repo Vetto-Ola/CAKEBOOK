@@ -10,7 +10,7 @@ function IngredientSource(props) {
         <div className="IngredientSource">
             <div className="BlankBar">
                 {props.children}
-                <OpenCreateIngredienteButton 
+                <OpenCreateIngredienteButton buttonName={props.buttonName}
                     handleOpenPopUp={props.handleOpenPopUp}
                 />
             </div>
@@ -26,7 +26,7 @@ function IngredientSource(props) {
                             />
                 })
             }
-            <h1>Lista De Ingredientes</h1>
+            <h1>{props.titulo}</h1>
             {
                 props.ingredients && 
                 props.ingredients.map((item) => {

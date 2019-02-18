@@ -10,7 +10,7 @@ from rest_framework import viewsets
 @api_view(['GET'])
 def api_root(request, format=None):
     return Response({
-        'ingredients': reverse('ingredient-list', request=request, format=format)
+        'ingredients': reverse('ingredient-list', request=request, format=format),
     })
 
 from rest_framework.decorators import action

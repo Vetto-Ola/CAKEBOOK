@@ -10,6 +10,14 @@ function data(state, action){
             // action.payload.query
             return {...state, ingredientList: action.payload.ingredientList}
         }
+        case 'SHOW_CREATE_WINDOW':{
+            // action.payload.query
+            return {...state, createPopUpVisible: action.payload.createPopUpVisible}
+        }
+        case 'SHOW_UPDATE_WINDOW':{
+            // action.payload.query
+            return {...state, updatePopUpVisible: action.payload.updatePopUpVisible}
+        }
         default:
             return state
     }

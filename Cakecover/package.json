@@ -33,10 +33,12 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "immutable": "^4.0.0-rc.12",
     "prop-types": "^15.7.2",
     "react": "16.8.2",
     "react-dom": "16.8.2",
     "react-redux": "^6.0.0",
-    "redux": "^4.0.1"
+    "redux": "^4.0.1",
+    "redux-immutable": "^4.0.0"
   }
 }
