@@ -1,32 +1,34 @@
 import React, { Component } from 'react';
 import HomeLayout from '../components/home_layout';
-import IngredientSource from 
-        '../../ingredient_source/containers/ingredient_source';
+import IngredientSource from
+    '../../ingredient_source/containers/ingredient_source';
 import Related from '../components/related';
 import PopUpContainer from '../../widgets/containers/pop_up';
 import PopUpToCreate from '../../widgets/components/pop_up_create';
 import PopUpToUpdate from '../../widgets/components/pop_up_update';
+import SeachIngredient from '../../ingredient_source/components/search_ingredient'
 
 import axios from 'axios';
 
-class Home extends Component{
+class Home extends Component {
     state = {
         popUpToCreate: false,
         popUpToEdit: false,
         ingredients: [],
+        search: [],
         url: '',
         name: '',
         description: '',
     }
     // Resquest to get all data we need to show. Ingredients information.
-    componentDidMount(){
+    componentDidMount() {
         axios.get(`http://127.0.0.1:8000/ingredient/`)
             .then(result => {
-            this.setState({
-                ingredients: result.data.results
+                this.setState({
+                    ingredients: result.data.results
+                })
+                // console.log(this.state.ingredients);
             })
-            // console.log(this.state.ingredients);
-        })
     }
 
     handleOpenClickPopUp = (event) => {
@@ -56,31 +58,32 @@ class Home extends Component{
     handleUpdateIngredientClick = (event) => {
         axios.get(event.target.id)
             .then(result => {
-            this.setState({
-                url: result.data.url,
-                name: result.data.name,
-                description: result.data.description,
-                popUpToEdit: true,
+                this.setState({
+                    url: result.data.url,
+                    name: result.data.name,
+                    description: result.data.description,
+                    popUpToEdit: true,
+                })
             })
-        })
     }
 
     handlePutUpdateIngredientClick = (event) => {
+        // event.preventDefault();
         const updateIngredient = {
             name: this.state.name,
             description: this.state.description
         }
         axios.put(this.state.url, updateIngredient)
-        .then(result => {
-            console.log(result);
-            console.log(result.data);
-            this.setState({
-                popUpToEdit: false,
-                name: '',
-                description: '',
-                url: '',
-            })
-        });
+            .then(result => {
+                console.log(result);
+                console.log(result.data);
+                this.setState({
+                    popUpToEdit: false,
+                    name: '',
+                    description: '',
+                    url: '',
+                })
+            });
     }
 
     handleUpdateCloseClickPopUp = (event) => {
@@ -91,7 +94,7 @@ class Home extends Component{
             description: '',
         })
     }
-    
+
     handleIngredientDelete = (event) => {
         console.log(event.target.id);
         if (confirm("¿Seguro de que quiere eliminarlo?")) {
@@ -109,33 +112,54 @@ class Home extends Component{
         }
         console.log(newIngredient);
         axios.post(`http://127.0.0.1:8000/ingredient/`, newIngredient)
-        .then(result => {
-            console.log(result);
-            console.log(result.data);
-            this.setState({
-                popUpToCreate: false,
-                name: '',
-                description: '',
-            })
-        });
+            .then(result => {
+                console.log(result);
+                console.log(result.data);
+                this.setState({
+                    popUpToCreate: false,
+                    name: '',
+                    description: '',
+                })
+            });
     }
 
-    render(){
-        return(
+    handleSearchSumbit = event => {
+        event.preventDefault();
+        console.log(this.input.value,' sumbit')
+        const text = this.input.value.replace('','+')
+        console.log(text)
+        axios.get(`http://127.0.0.1:8000/ingredient/?contains=${text}`)
+            .then(result => {
+                this.setState({
+                    search: result.data.results,
+                })
+            })
+    }
+    setInputSearchIngredientRef = element => {
+        this.input = element;
+    }
+
+    render() {
+        return (
             <HomeLayout>
-                <Related/>
-                <IngredientSource 
+                <Related />
+                <IngredientSource
+                    search={this.state.search}
                     ingredients={this.state.ingredients}
                     handleIngredientClick={this.handleUpdateIngredientClick}
                     handleIngredientDelete={this.handleIngredientDelete}
                     handleOpenPopUp={this.handleOpenClickPopUp}
                     handleUpdateIngredientClick={this.handleUpdateIngredientClick}
                 >
+                    <SeachIngredient
+                        handleSearchSumbit={this.handleSearchSumbit}
+                        setInputSearchIngredientRef={this.setInputSearchIngredientRef}
+                    />
                 </IngredientSource>
                 {
                     this.state.popUpToCreate &&
                     <PopUpContainer>
-                        <PopUpToCreate 
+                        <PopUpToCreate
                             handleOnChangeInputText={this.handleChangeInputText}
                             handleOnChangeInputTextArea={this.handleChangeInputTextArea}
                             handleSumbitNewIngredient={this.handleSumbitNewIngredient}

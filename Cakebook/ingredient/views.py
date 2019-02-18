@@ -25,3 +25,12 @@ class IngredientViewSet(viewsets.ModelViewSet):
     """
     queryset = Ingredient.objects.all()
     serializer_class = IngredientSerializer
+
+    def get_queryset(self):
+        """ allow rest api to filter by submissions """
+        queryset = Ingredient.objects.all()
+        contains = self.request.query_params.get('contains', None)
+        if contains is not None:
+            queryset = queryset.filter(name__icontains=contains)
+        
+        return queryset

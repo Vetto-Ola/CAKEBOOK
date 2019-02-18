@@ -1,0 +1,17 @@
+.Input {
+    
+    margin: 4px 2px;
+    border-radius: 5px;
+    width: 100%;
+    background: whitesmoke;
+    font-size: 18px;
+    font-family: Arial;
+    /* box-shadow: 2px 2px 5px rgba(0,0,0,.3); */
+    outline: 0;
+    padding: 12px;
+}
+
+.SearchLayout {
+    width: 40%;
+    
+}
