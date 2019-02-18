@@ -1,13 +1,53 @@
 .Ingredient{
     border: 1px solid black;
-    cursor: pointer;
     background: whitesmoke;
     margin-bottom: 15px;
     padding-left: 15px;
+    padding-right: 15px;
+    overflow: auto;
+    border-radius: 8px;
 }
 
-.Ingredient h4{
+.Ingredient h4.LEFT{
     color: black;
+    float: left;
+    width: 75%;
+}
+
+.Ingredient h4.RIGTH{
+    color: black;
+    float: right;
+    width: 25%;
+}
+
+.Ingredient button{
+    cursor: pointer;
+    color: black;
+    float: right;
+    height: 23px;
+    font-size: 14px;
+    font-weight: bold;
+    margin-left: 10%;
+}
+
+.Ingredient button.POST{
+    border-radius: 8px;
+    background-color: #00c8b4;
+    border: none;
+    color: white;
+    text-align: center;
+    /* font-size: 16px; */
+    /* #B2345E */
+}
+
+.Ingredient button.DELETE{
+    border-radius: 8px;
+    background-color: #B2345E;
+    border: none;
+    color: white;
+    text-align: center;
+    /* font-size: 16px; */
+    /* #B2345E */
 }
 
 .Ingredient p{

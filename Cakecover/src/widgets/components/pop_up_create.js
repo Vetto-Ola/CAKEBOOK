@@ -1,11 +1,11 @@
 import React from 'react';
-import './pop-up.css';
+import './pop_up.css';
 
 function PopUp(props){
     return(
         <div className="PopUp">
             <h3>Agregar Ingrediente</h3>
-            <form onSubmit={props.handleSumbitNewIngredient}>
+            <form onSubmit={props.handleSumbitNewIngredient} autoComplete="Off">
                 <div>
                     <label>Nombre del ingrediente:</label>
                 </div>
@@ -19,7 +19,7 @@ function PopUp(props){
                     onChange={props.handleOnChangeInputTextArea}
                     />
                 <div>
-                    <button type="sumbit">Crear</button>    
+                    <button className="Add" type="sumbit">Crear</button>    
                 </div>
             </form>
             <button onClick={props.handleCloseClick} className="PopUp-close"/>

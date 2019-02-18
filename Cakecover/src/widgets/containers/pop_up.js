@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { createPortal } from 'react-dom';
 
-class PopUp extends Component{
+class PopUpToCreate extends Component{
     render(){
         return createPortal(
             this.props.children,
@@ -10,4 +10,4 @@ class PopUp extends Component{
     }
 }
 
-export default PopUp;
+export default PopUpToCreate;
