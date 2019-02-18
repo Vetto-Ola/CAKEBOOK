@@ -1,4 +1,5 @@
 from cake.models import Cake
+from ingredient.models import Ingredient
 from cake.serializers import CakeSerializer
 from rest_framework import generics
 from rest_framework.decorators import api_view
@@ -31,6 +32,6 @@ class CakeViewSet(viewsets.ModelViewSet):
         queryset = Cake.objects.all()
         contains = self.request.query_params.get('contains', None)
         if contains is not None:
-            queryset = queryset.filter(name__icontains=contains)
+            queryset = Cake.objects.filter(ingredients__name__iexact=contains)
         
         return queryset

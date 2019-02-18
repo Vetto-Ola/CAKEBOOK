@@ -5,7 +5,7 @@ import IngredientSource from
 import Related from '../components/cake-related';
 import PopUpContainer from '../../widgets/containers/pop_up';
 import PopUpToCreate from '../../widgets/components/pop_up_create';
-import PopUpToUpdate from '../../widgets/components/pop_up_update';
+import PopUpToUpdate from '../../widgets/components/pop_up_update_cake';
 import SeachIngredient from '../../ingredient_source/components/search_ingredient'
 import { connect } from 'react-redux';
 import * as actions from '../../actions/ingredients/index';
@@ -19,6 +19,7 @@ class Home extends Component {
         url: '',
         name: '',
         description: '',
+        ingredients: '',
     }
     // Resquest to get all data we need to show. Ingredients information.
     componentDidMount() {
@@ -27,6 +28,7 @@ class Home extends Component {
                 console.log(result.data.results)
                 this.props.actions.showIngredients(result.data.results)
             })
+        
     }
 
     handleOpenClickPopUp = (event) => {
@@ -56,6 +58,7 @@ class Home extends Component {
                     url: result.data.url,
                     name: result.data.name,
                     description: result.data.description,
+                    ingredients: result.data.ingredients,
                     popUpToEdit: true,
                 })
                 this.props.actions.openUpdate()
@@ -168,6 +171,7 @@ class Home extends Component {
                             handleCloseClick={this.handleUpdateCloseClickPopUp}
                             name={this.state.name}
                             description={this.state.description}
+                            ingredients={this.state.ingredients}
                         />
                     </PopUpContainer>
                 }
