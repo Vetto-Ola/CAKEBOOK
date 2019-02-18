@@ -7,6 +7,7 @@ import PopUpContainer from '../../widgets/containers/pop_up';
 import PopUpToCreate from '../../widgets/components/pop_up_create';
 import PopUpToUpdate from '../../widgets/components/pop_up_update';
 import SeachIngredient from '../../ingredient_source/components/search_ingredient'
+import { connect } from 'react-redux';
 
 import axios from 'axios';
 
@@ -14,8 +15,6 @@ class Home extends Component {
     state = {
         popUpToCreate: false,
         popUpToEdit: false,
-        ingredients: [],
-        search: [],
         url: '',
         name: '',
         description: '',
@@ -24,10 +23,12 @@ class Home extends Component {
     componentDidMount() {
         axios.get(`http://127.0.0.1:8000/ingredient/`)
             .then(result => {
-                this.setState({
-                    ingredients: result.data.results
+                this.props.dispatch({
+                    type: 'SHOW_INGREDIENTS',
+                    payload: {
+                        ingredientList: result.data.results,
+                    }
                 })
-                // console.log(this.state.ingredients);
             })
     }
 
@@ -125,13 +126,14 @@ class Home extends Component {
 
     handleSearchSumbit = event => {
         event.preventDefault();
-        console.log(this.input.value,' sumbit')
-        const text = this.input.value.replace('','+')
-        console.log(text)
+        const text = this.input.value.replace(' ','+')
         axios.get(`http://127.0.0.1:8000/ingredient/?contains=${text}`)
             .then(result => {
-                this.setState({
-                    search: result.data.results,
+                this.props.dispatch({
+                    type: 'SEARCH_INGREDIENT',
+                    payload: {
+                        searchResult: result.data.results,
+                    }
                 })
             })
     }
@@ -144,8 +146,8 @@ class Home extends Component {
             <HomeLayout>
                 <Related />
                 <IngredientSource
-                    search={this.state.search}
-                    ingredients={this.state.ingredients}
+                    search={this.props.searchResults}
+                    ingredients={this.props.ingredientList}
                     handleIngredientClick={this.handleUpdateIngredientClick}
                     handleIngredientDelete={this.handleIngredientDelete}
                     handleOpenPopUp={this.handleOpenClickPopUp}
@@ -185,4 +187,11 @@ class Home extends Component {
     }
 }
 
-export default Home;
+function mapStateToProps(state, props){
+    return{
+        searchResults: state.searchResults,
+        ingredientList: state.ingredientList
+    }
+}
+
+export default connect(mapStateToProps)(Home);

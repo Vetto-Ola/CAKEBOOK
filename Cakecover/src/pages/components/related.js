@@ -6,8 +6,8 @@ import './related.css';
 function Related(props){
     return(
         <div className="Related">
-            {/* <img src={logo} width={300}/> */}
             <img src={logo2}/>
+            <h1><a href="./cakes.html">Ir a pasteles --></a></h1>
         </div>
     )
 }
